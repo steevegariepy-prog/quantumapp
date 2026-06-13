@@ -1,0 +1,9 @@
+export type MissionType = 'social' | 'logic' | 'exploration' | 'physical' | 'AR';
+export type CompletionRule = 'gps_check_in' | 'manual_validation';
+export type PlayerStats = { logic:number; gpsNavigation:number; social:number; tech:number; speed:number; leadership:number; explorationStyle:'strategist'|'scout'|'connector'|'sprinter' };
+export type EmotionalProfile = { fearTolerance:number; disgustTolerance:number; adrenalineLevel:number };
+export type Player = { id:string; username:string; stats:PlayerStats; emotionalProfile:EmotionalProfile; reputation:number; individualScore:number };
+export type Mission = { id:string; questId:string; title:string; description:string; lat:number; lng:number; radiusMeters:number; type:MissionType; completionRule:CompletionRule; timerMinutes?:number; points:number; impactBonus:number };
+export type Quest = { id:string; title:string; city:string; durationHours:number; maxTeams:number; teamSize:string; description:string; missions:Mission[] };
+export type Team = { id:string; name:string; questId?:string; members:Player[]; score:number; currentMissionIndex:number };
+export type Feedback = { missionId:string; reviewerId:string; teammateId:string; contribution:number; intelligence:number; impact:number };
