@@ -17,3 +17,18 @@ npm run dev
 
 ## Core scoring
 `TeamScore = sum(player scores) + cooperation bonus - domination penalty`
+
+## Google authentication
+
+Set these environment variables before running the app:
+
+```bash
+GOOGLE_CLIENT_ID=your-google-oauth-client-id
+GOOGLE_CLIENT_SECRET=your-google-oauth-client-secret
+AUTH_SECRET=generate-a-long-random-secret
+NEXTAUTH_URL=http://localhost:3000
+# Optional when deploying behind a custom callback URL:
+GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/callback/google
+```
+
+Create the OAuth client in Google Cloud Console and add `/api/auth/callback/google` as an authorized redirect URI. User profiles are automatically created on first login and stored in `.data/users.json` for this MVP; use `supabase/schema.sql` for the production database shape.
