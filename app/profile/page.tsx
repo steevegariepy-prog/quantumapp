@@ -1,2 +1,17 @@
-import { Card } from '@/components/Card'; import { demoPlayers } from '@/lib/mock-data';
-export default function Profile(){ const p=demoPlayers[0]; const stats=Object.entries(p.stats).filter(([,v])=>typeof v==='number') as [string,number][]; return <main className="mx-auto max-w-md space-y-4 p-4"><h1 className="pt-5 text-3xl font-black">{p.username}</h1><Card><h2 className="font-bold">Player stats</h2>{stats.map(([k,v])=><div key={k} className="mt-3"><div className="flex justify-between text-sm"><span>{k}</span><span>{v}</span></div><div className="h-2 rounded bg-white/10"><div className="h-2 rounded bg-neon" style={{width:`${v}%`}}/></div></div>)}<p className="mt-4 text-sm text-white/60">Style: {p.stats.explorationStyle}</p></Card><Card><h2 className="font-bold">Emotional profile</h2>{Object.entries(p.emotionalProfile).map(([k,v])=><p key={k} className="mt-2 flex justify-between"><span>{k}</span><b>{v}</b></p>)}</Card></main>; }
+import Link from 'next/link';
+import { ProfileEditor } from './ProfileEditor';
+import { requireSessionUser } from '@/lib/auth';
+
+export default async function Profile() {
+  const user = await requireSessionUser();
+  return (
+    <main className="premium-app-shell premium-profile-page">
+      <header className="premium-topbar">
+        <Link className="premium-icon-button" href="/" aria-label="Back home">‹</Link>
+        <p className="premium-topbar-title">Profil</p>
+        <span className="premium-icon-button muted">✦</span>
+      </header>
+      <ProfileEditor user={user} />
+    </main>
+  );
+}
